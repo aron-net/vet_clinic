@@ -88,3 +88,31 @@ SELECT neutered, ROUND(AVG(escape_attempts)) as attempts FROM animals GROUP BY n
 SELECT species, MAX(weight_kg), MIN(weight_kg) FROM animals GROUP BY species;
 
 SELECT species, ROUND(AVG(escape_attempts)) as attempts FROM animals WHERE date_of_birth BETWEEN DATE '1990-01-01' AND '2000-12-31' GROUP BY species;
+
+/* animals belong to Melody Pond */
+
+SELECT name FROM animals INNER JOIN owners ON owner_id = owners.id WHERE full_name = 'Melody Pond';
+
+/* List of all animals pokemon (their type is Pokemon) */
+
+SELECT animals.name FROM animals JOIN species ON animals.species_id = species.id WHERE species.name = 'Pokemon';
+
+/* List all owners and their animals, remember to include those that don't own any animal.*/
+
+SELECT owners.full_name,animals.name as animals_name FROM owners LEFT JOIN animals ON owners.id = animals.owner_id;
+
+/* animals are there per species */
+
+SELECT species.name, COUNT(*) FROM animals LEFT JOIN species ON animals.species_id = species.id GROUP BY species.name;
+
+/* List all Digimon owned by Jennifer Orwell. */
+
+SELECT animals.name FROM animals LEFT JOIN species ON animals.species_id = species.id LEFT JOIN owners ON owner_id = owners.id WHERE species.name = 'Digimon' AND full_name = 'Jennifer Orwell';
+
+/* List all animals owned by Dean Winchester that haven't tried to escape. */
+
+SELECT animals.name FROM animals LEFT JOIN owners ON animals.owner_id = owners.id WHERE animals.escape_attempts = 0 AND owners.full_name = 'Dean Winchester';
+
+/* owns the most animals */
+
+SELECT full_name, COUNT(*) FROM animals LEFT JOIN owners ON owner_id = owners.id GROUP BY full_name ORDER BY COUNT(*) DESC LIMIT 1;
