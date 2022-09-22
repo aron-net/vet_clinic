@@ -11,3 +11,41 @@ CREATE TABLE animals (
 
 /* Add new column species */
 ALTER TABLE animals ADD species VARCHAR(100);
+
+/* Create new table owners */
+
+CREATE TABLE owners (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100),
+    age INT
+);
+
+/* Create new table species */
+
+CREATE TABLE species (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+/* Modify animals table */
+
+ALTER TABLE animals ALTER COLUMN id SET NOT NULL;
+
+ALTER TABLE animals
+ALTER id 
+ADD GENERATED ALWAYS  AS IDENTITY (START WITH 11 INCREMENT BY 1),
+ADD PRIMARY KEY(id);
+
+/* Remove column species */
+
+ALTER TABLE animals DROP COLUMN species;
+
+/* Add column species_id which is a foreign key referencing species table */
+
+ALTER TABLE animals ADD species_id INT;
+ALTER TABLE animals ADD FOREIGN KEY (species_id) REFERENCES species(id);
+
+/* Add column owner_id which is a foreign key referencing the owners table */
+
+ALTER TABLE animals ADD owner_id INT;
+ALTER TABLE animals ADD FOREIGN KEY (owner_id) REFERENCES owners(id);
