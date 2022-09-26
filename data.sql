@@ -83,3 +83,9 @@ VALUES  ((SELECT id FROM animals WHERE animals.name = 'Agumon'),(SELECT id FROM 
         ((SELECT id FROM animals WHERE animals.name = 'Boarmon'),(SELECT id FROM vets WHERE vets.name = 'Maisy Smith'),'2020-08-03'),
         ((SELECT id FROM animals WHERE animals.name = 'Blossom'),(SELECT id FROM vets WHERE vets.name = 'Stephanie Mendez'),'2020-05-24'),
         ((SELECT id FROM animals WHERE animals.name = 'Blossom'),(SELECT id FROM vets WHERE vets.name = 'William Tatcher'),'2021-01-11');
+
+CREATE INDEX animal_index ON visits(animal_id);
+
+CREATE INDEX vet_id ON visits(vet_id);
+
+CREATE INDEX email_index ON owners(email); 
